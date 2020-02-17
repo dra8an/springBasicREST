@@ -26,16 +26,24 @@ import org.springframework.stereotype.Component;
 @Component // <1>
 public class DatabaseLoader implements CommandLineRunner { // <2>
 
-	private final EmployeeRepository repository;
+	private final EmployeeRepository employeeRepository;
+	private final CarRepository carRepository;
 
 	@Autowired // <3>
-	public DatabaseLoader(EmployeeRepository repository) {
-		this.repository = repository;
+	public DatabaseLoader(EmployeeRepository employeeRepository, CarRepository carRepository) {
+		this.employeeRepository = employeeRepository;
+		this.carRepository = carRepository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception { // <4>
-		this.repository.save(new Employee("Frodo", "Baggins", "ring bearer"));
+		this.employeeRepository.save(new Employee("Frodo", "Baggins", "ring bearer"));
+
+		this.carRepository.save(new Car("BMW", "M3", "black", 2019));
+		this.carRepository.save(new Car("Mercedes", "AMG S65", "white", 2017));
+		this.carRepository.save(new Car("Audi", "RS5", "grey", 2015));
+		this.carRepository.save(new Car("Ferrari", "Testarossa", "red", 1989));
+		this.carRepository.save(new Car("Porsche", "911 GT2", "orange", 2011));
 	}
 }
 // end::code[]
